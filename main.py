@@ -71,3 +71,21 @@ def predict(payload: PredictionInput):
     return {
         "predicted_delivery_time_min": round(float(prediction[0]), 2)
     }
+import os
+import joblib
+import pandas as pd
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# THIS MUST BE AT THE TOP LEVEL (OUTSIDE ANY FUNCTION)
+app = FastAPI(title="Delivery Time Prediction API", redirect_slashes=False)
+
+model = None
+preprocessor = None
+
+
+def load_artifacts():
+  global model, preprocessor
+  # ... function contents ...
